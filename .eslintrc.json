@@ -1,0 +1,37 @@
+{
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2022,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-console": "warn",
+        "no-ex-assign": "error",
+        "complexity": [
+            "warn",
+            15
+        ],
+        "no-shadow": "warn",
+        "no-invalid-this": "error",
+        "no-duplicate-case": "error",
+        "no-cond-assign": "error",
+        "no-const-assign": "error",
+        "no-var": "warn",
+        "for-direction": "error",
+        "no-fallthrough": "error",
+        "no-constant-condition": "error"
+    }
+}
