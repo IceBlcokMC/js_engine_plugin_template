@@ -1,7 +1,7 @@
-import foo from "./foo";
+import foo from "./foo.js";
 
 JSE.registerPlugin({
-    name: "myPlugin",
+    name: "my_plugin",
     version: "1.0.0",
     load: Enums.PluginLoadOrder.PostWorld,
     permissions: {
