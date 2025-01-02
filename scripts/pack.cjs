@@ -6,6 +6,12 @@ const projectDir = path.resolve(__dirname, "../");
 
 // Copy package.json
 fs.copyFileSync(path.resolve(projectDir, "package.json"), path.resolve(outputDir, "package.json"));
+// Remove scripts's postinstall
+const packageJson = require(path.resolve(outputDir, "package.json"));
+if (packageJson.scripts) {
+    delete packageJson.scripts.postinstall;
+    fs.writeFileSync(path.resolve(outputDir, "package.json"), JSON.stringify(packageJson, null, 2));
+}
 
 // Copy README.md
 fs.copyFileSync(path.resolve(projectDir, "README.md"), path.resolve(outputDir, "README.md"));
