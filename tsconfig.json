@@ -4,10 +4,9 @@
         "lib/**/*.d.ts"
     ],
     "compilerOptions": {
-        "module": "ESNext",
-        "target": "ES2022",
         "outDir": "dist",
         "strict": true,
+        "esModuleInterop": true,
         "skipLibCheck": true, // 跳过对声明文件的检查
         "forceConsistentCasingInFileNames": true // 强制文件名的大小写一致，避免因大小写不同而导致的文件找不到的问题
     }
