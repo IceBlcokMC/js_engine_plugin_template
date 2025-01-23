@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 
 const repoUrl = 'https://github.com/IceBlcokMC/Js_Engine.git';
 const tempDir = path.join(__dirname, '..', 'temp');
-const libDir = path.join(__dirname, '..', 'lib');
+const typesDir = path.join(__dirname, '..', 'types');
 
 exec(`git clone --depth=1 ${repoUrl} ${tempDir}`, (err) => {
     if (err) {
@@ -12,9 +12,9 @@ exec(`git clone --depth=1 ${repoUrl} ${tempDir}`, (err) => {
         process.exit(1);
     }
 
-    fs.copy(path.join(tempDir, 'lib'), libDir, (err) => {
+    fs.copy(path.join(tempDir, 'types'), typesDir, (err) => {
         if (err) {
-            console.error('Failed to copy lib folder:', err);
+            console.error('Failed to copy types folder:', err);
             process.exit(1);
         }
 
@@ -24,7 +24,7 @@ exec(`git clone --depth=1 ${repoUrl} ${tempDir}`, (err) => {
                 process.exit(1);
             }
 
-            console.log('Successfully installed lib types.');
+            console.log('Successfully installed Js_Engine types.');
         });
     });
 });

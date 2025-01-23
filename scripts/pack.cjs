@@ -4,22 +4,32 @@ const path = require("path");
 const outputDir = path.resolve(__dirname, "../dist");
 const projectDir = path.resolve(__dirname, "../");
 
-// Copy package.json
-fs.copyFileSync(path.resolve(projectDir, "package.json"), path.resolve(outputDir, "package.json"));
-// Remove scripts's postinstall
-const packageJson = require(path.resolve(outputDir, "package.json"));
-delete packageJson.scripts; // Remove scripts
-fs.writeFileSync(path.resolve(outputDir, "package.json"), JSON.stringify(packageJson, null, 2));
+{
+  // Copy package.json
+  const hasKey = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+  const packageJson = require(path.resolve(projectDir, "package.json"));
 
-// Copy README.md
-fs.copyFileSync(path.resolve(projectDir, "README.md"), path.resolve(outputDir, "README.md"));
+  if (hasKey(packageJson, "scripts")) {
+    for (const key in packageJson.scripts) {
+      if (key.startsWith("post")) {
+        delete packageJson.scripts[key];
+      }
+    }
+  }
 
-// Copy LICENSE
-if (fs.existsSync(path.resolve(projectDir, "LICENSE"))) {
-    fs.copyFileSync(path.resolve(projectDir, "LICENSE"), path.resolve(outputDir, "LICENSE"));
+  if (!hasKey(packageJson, "main")) {
+    throw new Error("package.json does not have a main field");
+  }
+
+  fs.writeFileSync(path.resolve(outputDir, "package.json"), JSON.stringify(packageJson, null, 2));
 }
 
-// Copy CHANGELOG.md
-if (fs.existsSync(path.resolve(projectDir, "CHANGELOG.md"))) {
-    fs.copyFileSync(path.resolve(projectDir, "CHANGELOG.md"), path.resolve(outputDir, "CHANGELOG.md"));
+const files = ["README.md", "LICENSE", "CHANGELOG.md"];
+
+for (const file of files) {
+  if (fs.existsSync(path.resolve(projectDir, file))) {
+    fs.copyFileSync(path.resolve(projectDir, file), path.resolve(outputDir, file));
+  }
 }
+
+console.info("Packaged plugin.");
